@@ -10,7 +10,7 @@ st.set_page_config(
 '''
 # Delta LAB
 #### Inventario
-Escuela de Ingeniería Electromecánica - Tecnológico de Costa Rica
+Laboratorio de Instrumentación - Tecnológico de Costa Rica
 '''
 
 detail = pd.read_csv("details.csv").fillna("")
