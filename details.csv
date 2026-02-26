@@ -1,2 +1,8 @@
 code,type,subtype,manufacturer,model,description,value,package,info
-TERM09CM,heat shrink tubing,9cm wide,,,9cm wide heat shrink tubing; black,,,
+
+RTDPT100,sensors,temperature sensor,,,rtd PT100 temperature sensor 100 ohms at 0 Celcius degrees three wires,,,
+IRDISTSE,sensors,distance sensor,SHARP,2Y0A21,Infrared distance sensor,,,
+HALLSENS,sensors,hall efect sensor,,55100 AP02A 1731,Hall effect sensor 55100,,,
+
+WIREIRDI,sensors accesories,distance sensor connection wire,,,connection wire for IR sensor,,,
+DISP7SEG,displays,7 Segment display,,CPD-S6010LB-BW T1912,Seven segment LED display one digit,,,

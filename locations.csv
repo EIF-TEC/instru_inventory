@@ -1,2 +1,9 @@
 code,location,sublocation,units,available
-TERM09CM,A,,1,1
+
+RTDPT100,S,01,11,11
+IRDISTSE,S,02,9,9
+WIREIRDI,S,02,8,8
+HALLSENS,S,03,9,9
+
+DISP7SEG,S,00,22,22
+
