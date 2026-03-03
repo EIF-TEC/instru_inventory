@@ -1,40 +1,67 @@
 import streamlit as st
 import pandas as pd
+import requests
 
-# Set the title and favicon that appear in the Browser's tab bar.
-st.set_page_config(
-    page_title='Inventario DeltaLAB',
-)
-
+st.set_page_config(page_title='Inventario DeltaLAB')
 
 '''
-# Delta LAB
+# Laboratorio de Instrumentación 
 #### Inventario
-Laboratorio de Instrumentación - Tecnológico de Costa Rica
+Ingeniería Física - Tecnológico de Costa Rica
 '''
 
+# Cargar datos
 detail = pd.read_csv("details.csv").fillna("")
 types = detail["type"].unique()
 locati = pd.read_csv("locations.csv").fillna("")
 
-type = st.selectbox(
-    'Type',
-    types
-)
+# Selección de tipo y subtipo
+type = st.selectbox('Type', types)
+subtypes = detail[detail["type"] == type]["subtype"].unique()
+subtype = st.selectbox('Subtype', subtypes)
 
-subtypes = detail[detail["type"]==type]["subtype"].unique()
-
-subtype = st.selectbox(
-    'Subtype',
-    subtypes
-)
-
-list = detail[(detail["type"]==type) & (detail["subtype"]==subtype)]
-
+# Filtrar por tipo y subtipo
+list = detail[(detail["type"] == type) & (detail["subtype"] == subtype)]
 list = list.merge(locati, on='code', how='left')
+list.drop(columns=["info", "type", "subtype"], inplace=True)
 
-list.drop(columns=["info","type","subtype"],inplace=True)
+# 🔍 Campo de búsqueda por descripción
+search_term = st.text_input("Search by description")
+if search_term:
+    list = list[list.astype(str).apply(lambda row: " ".join(row).lower(), axis=1).str.contains(search_term.lower())]
 
-st.markdown("### Detalles:")
+if list.empty:
+    st.warning("No se encontraron coincidencias")
+else:
+    st.markdown("### Inventario:")
 
-st.dataframe(list,hide_index=True)  
+    # Mostrar resultados como tarjetas
+    for _, row in list.iterrows():
+        with st.container():
+            cols = st.columns([1, 3])  # columna para imagen y columna para texto
+            with cols[0]:
+                # Probar extensiones posibles
+                found = False
+                for ext in ["jpg", "png"]:
+                    image_url = f"https://raw.githubusercontent.com/DeltaLabo/inventary_pictures/main/inventory_images_ready/{row['code']}.{ext}"
+                    response = requests.get(image_url)
+                    if response.status_code == 200:
+                        st.image(image_url, width=150)
+                        found = True
+                        break
+                if not found:
+                    st.warning("No image")
+
+            with cols[1]:
+                st.markdown(f"**Código:** {row['code']}")
+                st.markdown(f"**Descripción:** {row['description']}")
+
+                # Mostrar ubicación solo si hay valor
+                if "location" in row:
+                    st.markdown(f"**Ubicación:** {row['location']}")
+
+                # Mostrar sublocalización solo si hay valor
+                if "sublocation" in row:
+                    st.markdown(f"**Sublocalización:** {row['sublocation']}")        
+
+        st.markdown("---")
