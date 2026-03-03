@@ -10,3 +10,7 @@ WIREIRDI,sensors accesories,distance sensor connection wire,,,connection wire fo
 
 DISP7SEG,displays,7 Segment display,,CPD-S6010LB-BW T1912,Seven segment LED display one digit,,,
 LARGCABL,cables and wires,protoboard cables,,, 18.5 cm cables for prototyping,,,
+LM324NIC,integrated circuits,Op-Amp Quad,Texas Instruments,LM324N,Quad operational amplifier 100dB,DIP-14,Low-power single supply
+OP37EAIC,integrated circuits,Op-Amp Precision,Analog Devices,OP37E,Precision operational amplifier low noise high speed,,,DIP-8,Low offset voltage
+SLIDSWIT,switch,slide,,,Miniature slide switch DPDT,,Through-hole,Compact size
+LCEL10KG,sensors,force sensor,,,Load cell strain gauge based sensor capacity 10 kg,,,Bridge output mV/V
